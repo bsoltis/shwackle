@@ -135,17 +135,31 @@ a {
     &.red:active {
         background: #E35252;
     }
+
+    &:disabled {
+        cursor: not-allowed;
+    }
 }
 
 .text-box {
-    font-size: 1.1em;
     display: block;
-    outline: none;
-    border: 1px solid #cdcdcd;
-    border-color: rgba(0, 0, 0, .15);
-    background-color: white;
-    border-radius: 5px;
-    padding: 5px 0px 5px 0px;
-    margin: 10px 0px 10px 0px;
     width: 100%;
+    height: calc(2.25rem + 2px);
+    padding: 0.35rem 0.5rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+    &:focus {
+        color: #495057;
+        background-color: #fff;
+        border-color: $OrangeSoda;
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgba(241, 89, 70, 0.25);
+    }
 }
