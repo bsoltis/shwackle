@@ -99,11 +99,16 @@ a {
     cursor: pointer;
     color: white;
     margin-bottom: 10px;
-}
 
-.button:hover {
-    background-color: white;
-    color: #2B2D42;
+    &:hover {
+        background-color: white;
+        color: #2B2D42;
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        background-color: #A3133A;
+    }
 }
 
 .text-box {
