@@ -72,6 +72,7 @@ a {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12),
         0 2px 4px 0 rgba(0, 0, 0, 0.08);
     background-color: #FBFEF9;
+    width: 300px;
 }
 
 .center-form {
@@ -79,35 +80,60 @@ a {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+
+    h1, h2, h3, h4, h5, h6 {
+        color: $MaximumBlue;
+    }
+
+    img {
+        display: block;
+        margin: 0 auto;
+    }
 }
 
-.center-form h3 {
-    text-align: center;
-}
-
-.center-form>.button {
-    float: right;
+.center-form > .button {
+    width:100%;
 }
 
 .button {
-    font-size: 1.1em;
-    border-radius: 5px;
-    outline: none;
-    background-color: #E01A4F;
-    border: 2px solid #E01A4F;
-    padding: 5px;
-    cursor: pointer;
+    text-decoration: none;
     color: white;
-    margin-bottom: 10px;
+    padding: 10px 30px;
+    display: inline-block;
+    position: relative;
+    border: 1px solid rgba(0,0,0,0.21);
+    border-bottom: 4px solid rgba(0,0,0,0.21);
+    border-radius: 4px;
+    text-shadow: 0 1px 0 rgba(0,0,0,0.15);
+    outline: 0;
 
-    &:hover {
-        background-color: white;
-        color: #2B2D42;
+    &.mini {
+        padding: 4px 12px;
+        font-size: 12px;
     }
 
-    &:disabled {
-        cursor: not-allowed;
-        background-color: #A3133A;
+    &.small {
+        padding: 8px 18px;
+        font-size: 14px;
+    }
+
+    &.large {
+        padding: 20px 40px;
+        font-size: 22px;
+    }
+
+    &.red {
+        background: rgba(250,90,90,1);
+        background: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(250,90,90,1)), to(rgba(232,81,81,1)));
+        background: -webkit-linear-gradient(rgba(250,90,90,1) 0%, rgba(232,81,81,1) 100%);
+        background: -moz-linear-gradient(rgba(250,90,90,1) 0%, rgba(232,81,81,1) 100%);
+        background: -o-linear-gradient(rgba(250,90,90,1) 0%, rgba(232,81,81,1) 100%);
+        background: linear-gradient(rgba(250,90,90,1) 0%, rgba(232,81,81,1) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fa5a5a', endColorstr='#e85151', GradientType=0 );
+    }
+
+    &.red:active {
+        background: #E35252;
     }
 }
 

@@ -23,7 +23,7 @@ class Register extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
         const { username, email, passwordOne } = this.state;
-        
+
         firebase
           .auth()
           .createUserWithEmailAndPassword(email, passwordOne)
@@ -42,7 +42,7 @@ class Register extends Component {
             passwordOne,
             passwordTwo,
             error,
-        } = this.state;    
+        } = this.state;
 
         const isInvalid =
             passwordOne !== passwordTwo ||
@@ -52,6 +52,7 @@ class Register extends Component {
 
         return (
             <form onSubmit={this.handleSubmit} className="card center-form">
+                <img src={require('./img/logo_transparent_background.png')} width="170" />
                 <h3>Register</h3>
                 <input
                     name="username"
@@ -85,7 +86,7 @@ class Register extends Component {
                     placeholder="Confirm Password"
                     className="text-box"
                 />
-                <button type="submit" className="button" disabled={isInvalid}>Sign Up</button>
+                <button type="submit" className="small red button" disabled={isInvalid}>Sign Up</button>
             </form>
         );
     }
