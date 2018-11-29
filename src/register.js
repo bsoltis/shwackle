@@ -25,14 +25,20 @@ class Register extends Component {
         const { username, email, passwordOne } = this.state;
 
         firebase
-          .auth()
-          .createUserWithEmailAndPassword(email, passwordOne)
-          .then((user) => {
-            this.props.history.push('/');
-          })
-          .catch((error) => {
-            this.setState({ error: error });
-          });
+            .auth()
+            .createUserWithEmailAndPassword(email, passwordOne)
+            .then((user) => {
+                let userRef = firebase.database().ref('users/' + user.user.uid);
+                userRef.set({
+                    username,
+                    email,
+                }).then(() => {
+                    this.props.history.push('/');
+                });
+            })
+            .catch((error) => {
+                this.setState({ error: error });
+            });
       };
 
     render() {
@@ -51,43 +57,45 @@ class Register extends Component {
             username === '';
 
         return (
-            <form onSubmit={this.handleSubmit} className="card center-form">
-                <img src={require('./img/logo_transparent_background.png')} width="170" />
-                <h3>Register</h3>
-                <input
-                    name="username"
-                    value={username}
-                    onChange={this.onChange}
-                    type="text"
-                    placeholder="Full Name"
-                    className="text-box"
-                />
-                <input
-                    name="email"
-                    value={email}
-                    onChange={this.onChange}
-                    type="text"
-                    placeholder="Email Address"
-                    className="text-box"
-                />
-                <input
-                    name="passwordOne"
-                    value={passwordOne}
-                    onChange={this.onChange}
-                    type="password"
-                    placeholder="Password"
-                    className="text-box"
-                />
-                <input
-                    name="passwordTwo"
-                    value={passwordTwo}
-                    onChange={this.onChange}
-                    type="password"
-                    placeholder="Confirm Password"
-                    className="text-box"
-                />
-                <button type="submit" className="small red button" disabled={isInvalid}>Sign Up</button>
-            </form>
+            <div className="card center-form">
+                <form onSubmit={this.handleSubmit}>
+                    <img src={require('./img/logo_transparent_background.png')} width="170" />
+                    <h3>Register</h3>
+                    <input
+                        name="username"
+                        value={username}
+                        onChange={this.onChange}
+                        type="text"
+                        placeholder="Full Name"
+                        className="text-box"
+                    />
+                    <input
+                        name="email"
+                        value={email}
+                        onChange={this.onChange}
+                        type="text"
+                        placeholder="Email Address"
+                        className="text-box"
+                    />
+                    <input
+                        name="passwordOne"
+                        value={passwordOne}
+                        onChange={this.onChange}
+                        type="password"
+                        placeholder="Password"
+                        className="text-box"
+                    />
+                    <input
+                        name="passwordTwo"
+                        value={passwordTwo}
+                        onChange={this.onChange}
+                        type="password"
+                        placeholder="Confirm Password"
+                        className="text-box"
+                    />
+                    <button type="submit" className="small red button" disabled={isInvalid}>Sign Up</button>
+                </form>
+            </div>
         );
     }
 }
