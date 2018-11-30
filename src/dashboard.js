@@ -1,53 +1,51 @@
-// import React, { Component } from 'react';
-// import firebase from './firebase';
+import React, { Component } from 'react';
+import { withFirebase } from './Firebase';
 
-// class Dashboard extends Component {
-//     constructor(props) {
-//         super(props);
+class Dashboard extends Component {
+    constructor(props) {
+        super(props);
 
-//         this.state = {
-//             users: [],
-//         }
-//     }
+        this.state = {
+            projectName: '',
+        }
+    }
 
-//     componentWillUnmount() {
-//         firebase.database().ref('users').off();
-//     }
+    componentWillUnmount() {
+    }
 
-//     componentDidMount() {
-//         var usersRef = firebase.database().ref('users');
-//         usersRef.on('value', snapshot => {
-//             const usersObject = snapshot.val();
+    componentDidMount() {
 
-//             const usersList = Object.keys(usersObject).map(key => ({
-//                 ...usersObject[key],
-//                 uid: key,
-//             }));
+        this.props.firebase.store.collection("projects").doc("1").onSnapshot(doc => {
+            this.setState({
+                projectName: doc.data().name,
+            })
+        });
+    }
 
-//             this.setState({
-//                 users: usersList,
-//             });
-//         });
-//     }
+    onChange = (event) => {
+        this.props.firebase.store
+            .collection("projects")
+            .doc("1")
+            .update({
+                name: event.target.value
+            });
+    }
 
-//     render() {
-//         const users = this.state.users;
+    render() {
+        const projectName = this.state.projectName;
 
-//         return (
-//             <ul className="dashboard">
-//                 {users.map(user => (
-//                     <li key={user.uid}>
-//                     <span>
-//                         <strong>E-Mail:</strong> {user.email}
-//                     </span>
-//                     <span>
-//                         <strong>Username:</strong> {user.username}
-//                     </span>
-//                     </li>
-//                 ))}
-//             </ul>
-//         );
-//     }
+        return (
+            <div className="center-form">
+                <input
+                    type="text"
+                    className="text-box"
+                    name="projectName"
+                    onChange={this.onChange}
+                    value={projectName}
+                />
+            </div>
+        );
+    }
 
-// }
-// export default Dashboard;
+}
+export default withFirebase(Dashboard);

@@ -28,7 +28,12 @@ class RegisterBase extends Component {
         this.props.firebase
             .doCreateUserWithEmailAndPassword(email, passwordOne)
             .then((user) => {
-                return this.props.firebase.user(user.user.uid).set({
+                // return this.props.firebase.user(user.user.uid).set({
+                //     username,
+                //     email,
+                // });
+
+                this.props.firebase.store.collection("users").add({
                     username,
                     email,
                 });
@@ -102,7 +107,7 @@ class RegisterBase extends Component {
 }
 
 const Register = compose(
-    withRouter, 
+    withRouter,
     withFirebase
 )(RegisterBase);
 

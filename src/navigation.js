@@ -42,9 +42,9 @@ class Navigation extends Component {
                     </div>
                     <Switch>
                         {/* <Route exact path="/" component={Home} /> */}
-                        {/* <Route authenticated={this.props.authenticated} path="/login" component={Login} /> */}
+                        <Route authenticated={this.props.authenticated} path="/login" component={Login} />
                         <Route path="/register" component={Register} />
-                        {/* <ProtectedRoute authenticated={this.props.authenticated} path="/dashboard" component={Dashboard} /> */}
+                        <ProtectedRoute authenticated={this.props.authenticated} path="/dashboard" component={Dashboard} />
                     </Switch>
                 </div>
             </Router>

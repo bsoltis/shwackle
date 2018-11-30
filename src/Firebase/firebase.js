@@ -1,6 +1,8 @@
 import app from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
+import 'firebase/firestore';
+import firebase from 'firebase';
 
 const config = {
     apiKey: "AIzaSyAaYgm3IbAiDnh3XEehXHzi2lwP9kl3L7s",
@@ -17,6 +19,11 @@ class Firebase {
 
         this.auth = app.auth();
         this.db = app.database();
+        this.store = firebase.firestore();
+
+        this.store.settings({
+            timestampsInSnapshots: true
+        });
     }
 
     // Auth API

@@ -1,64 +1,75 @@
-// import React, { Component } from 'react';
-// import { withRouter } from 'react-router-dom';
-// import firebase from './firebase';
+import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import { withFirebase } from './Firebase';
+import { compose } from 'recompose';
 
-// class Login extends Component {
-//     state = {
-//         email: '',
-//         password: '',
-//         error: null,
-//     };
+class LoginBase extends Component {
+    constructor(props) {
+        super(props);
 
-//     handleInputChange = (event) => {
-//         this.setState({ [event.target.name]: event.target.value });
-//     };
+        this.state = {
+            email: '',
+            password: '',
+            error: null,
+        };
+    }
 
-//     handleSubmit = (event) => {
-//         event.preventDefault();
-//         const { email, password } = this.state;
-//         firebase
-//             .auth()
-//             .signInWithEmailAndPassword(email, password)
-//             .then((user) => {
-//                 this.props.history.push('/');
-//             })
-//             .catch((error) => {
-//                 this.setState({ error: error });
-//             });
-//     };
+    handleInputChange = (event) => {
+        this.setState({ [event.target.name]: event.target.value });
+    };
 
-//     render() {
-//         const { email, password, error } = this.state;
+    handleSubmit = (event) => {
+        event.preventDefault();
+        const { email, password } = this.state;
+        this.props.firebase
+            .doSignInWithEmailAndPassword(email, password)
+            .then((user) => {
+                this.props.history.push('/');
+            })
+            .catch((error) => {
+                this.setState({ error: error });
+            });
+    };
 
-//         const isInvalid =
-//             password === '' ||
-//             email === '';
+    render() {
+        const { email, password, error } = this.state;
 
-//         return (
-//             <div className="card center-form">
-//                 <form onSubmit={this.handleSubmit}>
-//                     <img src={require('./img/logo_transparent_background.png')} width="170" />
-//                     <h3>Log In</h3>
-//                     <input
-//                         type="text"
-//                         name="email"
-//                         placeholder="Email"
-//                         value={email}
-//                         onChange={this.handleInputChange}
-//                         className="text-box"
-//                     />
-//                     <input
-//                         type="password"
-//                         name="password"
-//                         placeholder="Password"
-//                         value={password}
-//                         onChange={this.handleInputChange}
-//                         className="text-box"
-//                     />
-//                     <button type="submit" className="small red button" disabled={isInvalid}>Log In</button>
-//                 </form>
-//            </div>
-//         );
-//     }
-// }
-// export default withRouter(Login);
+        const isInvalid =
+            password === '' ||
+            email === '';
+
+        return (
+            <div className="card center-form">
+                <form onSubmit={this.handleSubmit}>
+                    <img src={require('./img/logo_transparent_background.png')} width="170" />
+                    <h3>Log In</h3>
+                    <input
+                        type="text"
+                        name="email"
+                        placeholder="Email"
+                        value={email}
+                        onChange={this.handleInputChange}
+                        className="text-box"
+                    />
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={this.handleInputChange}
+                        className="text-box"
+                    />
+                    <button type="submit" className="small red button" disabled={isInvalid}>Log In</button>
+                    { error && <p>{error.message}</p> }
+                </form>
+           </div>
+        );
+    }
+}
+
+const Login = compose(
+    withRouter,
+    withFirebase
+)(LoginBase);
+
+export default Login;
