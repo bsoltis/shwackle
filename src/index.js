@@ -5,13 +5,13 @@ import App from './app';
 import './index.scss';
 
 // import App from './components/App';
-//vimport Firebase, { FirebaseContext } from './components/Firebase';
+import Firebase, { FirebaseContext } from './Firebase';
 
-// ReactDOM.render(
-//     <FirebaseContext.Provider value={new Firebase()}>
-//         <App />
-//     </FirebaseContext.Provider>,
-//     document.getElementById('root')
-// );
+ReactDOM.render(
+    <FirebaseContext.Provider value={new Firebase()}>
+        <App />
+    </FirebaseContext.Provider>,
+    document.getElementById('root')
+);
 
-ReactDOM.render(<App />, document.getElementById('root'));
+//ReactDOM.render(<App />, document.getElementById('root'));

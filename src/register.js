@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import firebase from './firebase';
+import { withFirebase } from './Firebase';
+import { compose } from 'recompose';
 
 const INITIAL_STATE = {
     username: '',
@@ -10,7 +11,7 @@ const INITIAL_STATE = {
     error: null,
 };
 
-class Register extends Component {
+class RegisterBase extends Component {
     constructor(props) {
         super(props);
         this.state = { ...INITIAL_STATE };
@@ -24,12 +25,10 @@ class Register extends Component {
         event.preventDefault();
         const { username, email, passwordOne } = this.state;
 
-        firebase
-            .auth()
-            .createUserWithEmailAndPassword(email, passwordOne)
+        this.props.firebase
+            .doCreateUserWithEmailAndPassword(email, passwordOne)
             .then((user) => {
-                let userRef = firebase.database().ref('users/' + user.user.uid);
-                userRef.set({
+                return this.props.firebase.user(user.user.uid).set({
                     username,
                     email,
                 });
@@ -95,10 +94,16 @@ class Register extends Component {
                         className="text-box"
                     />
                     <button type="submit" className="small red button" disabled={isInvalid}>Sign Up</button>
+                    { error && <p>{error.message}</p> }
                 </form>
             </div>
         );
     }
 }
 
-export default withRouter(Register);
+const Register = compose(
+    withRouter, 
+    withFirebase
+)(RegisterBase);
+
+export default Register;
