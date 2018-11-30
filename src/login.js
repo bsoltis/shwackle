@@ -39,12 +39,12 @@ class Login extends Component {
                 <form onSubmit={this.handleSubmit}>
                     <img src={require('./img/logo_transparent_background.png')} width="170" />
                     <h3>Log In</h3>
-                    <input 
+                    <input
                         type="text"
                         name="email"
                         placeholder="Email"
                         value={email}
-                        onChange={this.handleInputChange} 
+                        onChange={this.handleInputChange}
                         className="text-box"
                     />
                     <input

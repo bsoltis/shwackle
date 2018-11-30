@@ -32,9 +32,10 @@ class Register extends Component {
                 userRef.set({
                     username,
                     email,
-                }).then(() => {
-                    this.props.history.push('/');
                 });
+            })
+            .then(() => {
+                this.props.history.push('/');
             })
             .catch((error) => {
                 this.setState({ error: error });
