@@ -18,9 +18,11 @@ class Dashboard extends Component {
 
         this.props.firebase.store
             .collection("users").onSnapshot(snapshot => {
+
                 var users = [];
                 snapshot.forEach(function(doc) {
-                    users.push(doc.data())
+                    var user = {id: doc.id, data: doc.data()};
+                    users.push(user);
                 });
 
                 this.setState({
@@ -31,10 +33,10 @@ class Dashboard extends Component {
 
     onChange = (event) => {
         this.props.firebase.store
-            .collection("projects")
-            .doc("1")
+            .collection("users")
+            .doc(event.target.id)
             .update({
-                name: event.target.value
+                email: event.target.value
             });
     }
 
@@ -44,22 +46,12 @@ class Dashboard extends Component {
         return (
             <div className="dashboard">
                 {users.map(user => (
-                    
-                    <input type="text" value={user.email} id={user.uid} key={user.uid} onChange={this.onChange} />
-                    
-                ))}
-            </div>            
-        );
 
-        {/* <div className="center-form">
-                <input
-                    type="text"
-                    className="text-box"
-                    name="projectName"
-                    onChange={this.onChange}
-                    value={projectName}
-                />
-            </div> */}
+                    <input type="text" value={user.data.email} id={user.id} key={user.id} onChange={this.onChange} />
+
+                ))}
+            </div>
+        );
     }
 
 }

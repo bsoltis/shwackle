@@ -41,7 +41,7 @@ class LoginBase extends Component {
         return (
             <div className="card center-form">
                 <form onSubmit={this.handleSubmit}>
-                    <img src={require('./img/logo_transparent_background.png')} width="170" />
+                    <img src={require('./img/logo_transparent_background.png')} width="170" alt="" />
                     <h3>Log In</h3>
                     <input
                         type="text"

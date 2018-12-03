@@ -64,7 +64,7 @@ class RegisterBase extends Component {
         return (
             <div className="card center-form">
                 <form onSubmit={this.handleSubmit}>
-                    <img src={require('./img/logo_transparent_background.png')} width="170" />
+                    <img src={require('./img/logo_transparent_background.png')} width="170" alt="" />
                     <h3>Register</h3>
                     <input
                         name="username"
