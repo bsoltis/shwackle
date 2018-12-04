@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 
-// import Home from './home';
+import Home from './home';
 import Register from './register';
 import Login from './login';
 import Dashboard from './dashboard';
@@ -13,35 +13,27 @@ class Navigation extends Component {
         return (
             <Router>
                 <div>
-                    <div className="menu">
-                        <ul>
-                            <li>
-                                <Link to="/">Home</Link>
-                            </li>
+                    <div className="ui fixed menu pointing secondary inverted" style={{backgroundColor: '#F15946'}}>
+                        <div className="ui container">
+                            <Link to="/" className="active item">Home</Link>
 
                             {this.props.authenticated ? (
-                                <span>
-                                    <li>
-                                        <Link to="/dashboard">Dashboard</Link>
-                                    </li>
-                                    <li>
-                                        <LogOut />
-                                    </li>
-                                </span>
+                                <div>
+                                <Link to="/dashboard" className="item">Dashboard</Link>
+                                <div className="right item">
+                                    <LogOut className="ui inverted button"/>
+                                </div>
+                                </div>
                             ) : (
-                                <span>
-                                    <li>
-                                        <Link to="/login">Login</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/register">Register</Link>
-                                    </li>
-                                </span>
+                                <div className="right item">
+                                    <Link to="/login" className="ui inverted button">Login</Link>
+                                    <Link to="/register" className="ui inverted button" style={{marginLeft: '0.5em'}}>Register</Link>
+                                </div>
                             )}
-                        </ul>
+                        </div>
                     </div>
                     <Switch>
-                        {/* <Route exact path="/" component={Home} /> */}
+                        <Route exact path="/" component={Home} />
                         <Route authenticated={this.props.authenticated} path="/login" component={Login} />
                         <Route path="/register" component={Register} />
                         <ProtectedRoute authenticated={this.props.authenticated} path="/dashboard" component={Dashboard} />
