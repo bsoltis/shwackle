@@ -26,7 +26,7 @@ const HomepageHeading = ({ mobile }) => (
             marginTop: mobile ? '1.5em' : '3em',
         }}
     />
-
+    
     <Header
       as='h2'
       content='A fast, customizable, real-time SCRUM tool.'

@@ -10,15 +10,24 @@ import ProtectedRoute from './protectedroute';
 import LogOut from './logout';
 
 class Navigation extends Component {
+    state = { activeItem: 'home' };
+
+    handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+
     render() {
+        const { activeItem } = this.state;
+
         return (
             <Router>
                 <div>
                     <Menu secondary pointing inverted fixed='top' style={{backgroundColor: '#F15946'}}>
                         {this.props.authenticated ? (
                             <Container>
-                                <Menu.Item as={Link} to="/" active>
+                                <Menu.Item as={Link} to="/" name='home' active={activeItem === 'home'} onClick={this.handleItemClick}>
                                     Home
+                                </Menu.Item>
+                                <Menu.Item as={Link} to="/dashboard" name='dashboard' active={activeItem === 'dashboard'} onClick={this.handleItemClick}>
+                                    Dashboard
                                 </Menu.Item>
                                 <Menu.Item position='right'>
                                     <LogOut />
@@ -40,25 +49,6 @@ class Navigation extends Component {
                             </Container>
                         )}
                     </Menu>
-                    {/* <div className="ui fixed menu pointing secondary inverted" style={{backgroundColor: '#F15946'}}>
-                        <div className="ui container">
-                            <Link to="/" className="active item">Home</Link>
-
-                            {this.props.authenticated ? (
-                                <div>
-                                <Link to="/dashboard" className="item">Dashboard</Link>
-                                <div className="right item">
-                                    <LogOut className="ui inverted button"/>
-                                </div>
-                                </div>
-                            ) : (
-                                <div className="right item">
-                                    <Link to="/login" className="ui inverted button">Login</Link>
-                                    <Link to="/register" className="ui inverted button" style={{marginLeft: '0.5em'}}>Register</Link>
-                                </div>
-                            )}
-                        </div>
-                    </div> */}
                     <Switch>
                         <Route exact path="/" component={Home} />
                         <Route authenticated={this.props.authenticated} path="/login" component={Login} />
