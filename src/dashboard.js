@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withFirebase } from './Firebase';
+import { Card, Segment, Container } from 'semantic-ui-react'; 
 
 class Dashboard extends Component {
     constructor(props) {
@@ -14,8 +15,6 @@ class Dashboard extends Component {
     }
 
     componentDidMount() {
-
-
         this.props.firebase.store
             .collection("users").onSnapshot(snapshot => {
 
@@ -44,13 +43,13 @@ class Dashboard extends Component {
         const users = this.state.users;
 
         return (
-            <div className="dashboard">
-                {users.map(user => (
-
-                    <input type="text" value={user.data.email} id={user.id} key={user.id} onChange={this.onChange} />
-
-                ))}
-            </div>
+            <Container >
+            <Card style={{marginTop: '3em'}}>
+                <Card.Content>
+                    <h1>Hello World</h1>
+                </Card.Content>
+            </Card>
+            </Container>
         );
     }
 
