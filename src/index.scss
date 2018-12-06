@@ -1,14 +1,19 @@
+$OrangeSoda: #F15946;
+$GunMetal: #2B2D42;
+$SpanishCrimson: #e01a4f;
+$Saffron: #F9C22E;
+$MaximumBlue: #53B3CB;
+
 body > div,
 body > div > div,
 body > div > div > div.login-form {
     height: 100%;
 }
 
-// $OrangeSoda: #F15946;
-// $GunMetal: #2B2D42;
-// $SpanishCrimson: #e01a4f;
-// $Saffron: #F9C22E;
-// $MaximumBlue: #53B3CB;
+.menu {
+    background-color: $OrangeSoda !important;
+}
+
 
 // h1,
 // h2,

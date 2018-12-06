@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withFirebase } from './Firebase';
-import { Card, Segment, Container } from 'semantic-ui-react'; 
+import { Card, Segment, Container, Header } from 'semantic-ui-react';
 
 class Dashboard extends Component {
     constructor(props) {
@@ -43,13 +43,22 @@ class Dashboard extends Component {
         const users = this.state.users;
 
         return (
-            <Container >
-            <Card style={{marginTop: '3em'}}>
+            <Segment
+                textAlign='center'
+                style={{ minHeight: 400, padding: '1em 0em', backgroundColor: '#2B2D42' }}
+                vertical>
+            <Container style={{marginTop: '3em'}}>
+            <Header as="h1" inverted>
+                Welcome to Shwackle
+            </Header>
+            <Card style={{marginTop: '5em'}}>
                 <Card.Content>
-                    <h1>Hello World</h1>
+                    <h1>Add a project</h1>
                 </Card.Content>
             </Card>
             </Container>
+
+          </Segment>
         );
     }
 

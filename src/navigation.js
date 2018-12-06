@@ -20,7 +20,7 @@ class Navigation extends Component {
         return (
             <Router>
                 <div>
-                    <Menu secondary pointing inverted fixed='top' style={{backgroundColor: '#F15946'}}>
+                    <Menu secondary pointing inverted fixed='top'>
                         {this.props.authenticated ? (
                             <Container>
                                 <Menu.Item as={Link} to="/" name='home' active={activeItem === 'home'} onClick={this.handleItemClick}>
@@ -51,9 +51,9 @@ class Navigation extends Component {
                     </Menu>
                     <Switch>
                         <Route exact path="/" component={Home} />
-                        <Route authenticated={this.props.authenticated} path="/login" component={Login} />
-                        <Route path="/register" component={Register} />
                         <ProtectedRoute authenticated={this.props.authenticated} path="/dashboard" component={Dashboard} />
+                        <Route path="/login" component={Login} />
+                        <Route path="/register" component={Register} />
                     </Switch>
                 </div>
             </Router>
