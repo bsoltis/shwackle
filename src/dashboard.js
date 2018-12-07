@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withFirebase } from './Firebase';
-import { Card, Segment, Container, Header } from 'semantic-ui-react';
+import { Card, Icon, Container, Header } from 'semantic-ui-react';
 
 class Dashboard extends Component {
     constructor(props) {
@@ -43,22 +43,23 @@ class Dashboard extends Component {
         const users = this.state.users;
 
         return (
-            <Segment
-                textAlign='center'
-                style={{ minHeight: 400, padding: '1em 0em', backgroundColor: '#2B2D42' }}
-                vertical>
-            <Container style={{marginTop: '3em'}}>
-            <Header as="h1" inverted>
-                Welcome to Shwackle
-            </Header>
-            <Card style={{marginTop: '5em'}}>
-                <Card.Content>
-                    <h1>Add a project</h1>
-                </Card.Content>
-            </Card>
+            <Container style={{marginTop: '7em'}}>
+                <Header as="h1" inverted>
+                    Welcome to Shwackle
+                </Header>
+                <Header as="h3" inverted>
+                    Manage existing projects or create a new project.
+                </Header>
+                <Card.Group itemsPerRow={4}>
+                    <Card color='red'>
+                        <Card.Content textAlign="center">
+                            <Icon name="plus circle" size="huge" style={{margin: '1em 0em'}}/>
+                            <Card.Header>Add a project</Card.Header>
+                            <Card.Description>Click here to ad a new SCRUM project.</Card.Description>
+                        </Card.Content>
+                    </Card>
+                </Card.Group>
             </Container>
-
-          </Segment>
         );
     }
 
