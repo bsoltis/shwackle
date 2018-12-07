@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withFirebase } from './Firebase';
-import { Card, Icon, Container, Header } from 'semantic-ui-react';
+import { Card, Icon, Container, Header, Modal, Input, Button } from 'semantic-ui-react';
 
 class Dashboard extends Component {
     constructor(props) {
@@ -8,6 +8,7 @@ class Dashboard extends Component {
 
         this.state = {
             users: [],
+            modalOpen: false,
         }
     }
 
@@ -40,7 +41,15 @@ class Dashboard extends Component {
     }
 
     addNewProject = (event) => {
+        this.setState({
+            modalOpen: true,
+        });
+    }
 
+    handleClose = () => {
+        this.setState({
+            modalOpen: false,
+        });
     }
 
     render() {
@@ -63,6 +72,17 @@ class Dashboard extends Component {
                         </Card.Content>
                     </Card>
                 </Card.Group>
+                <Modal open={this.state.modalOpen} size='small' onClose={this.handleClose}>
+                    <Modal.Header>Add a new project</Modal.Header>
+                    <Modal.Content>
+                        <Input placeholder="Project Name" fluid />
+                    </Modal.Content>
+                    <Modal.Actions>
+                        <Button color='green'>
+                            <Icon name='checkmark' /> Create
+                        </Button>
+                    </Modal.Actions>
+                </Modal>
             </Container>
         );
     }

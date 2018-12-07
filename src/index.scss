@@ -5,7 +5,7 @@ $Saffron: #F9C22E;
 $MaximumBlue: #53B3CB;
 
 body > div,
-body > div > div,
+body > div > div:not(.modal),
 body > div > div > div.login-form {
     height: 100%;
 }
