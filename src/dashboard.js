@@ -39,6 +39,10 @@ class Dashboard extends Component {
             });
     }
 
+    addNewProject = (event) => {
+
+    }
+
     render() {
         const users = this.state.users;
 
@@ -51,7 +55,7 @@ class Dashboard extends Component {
                     Manage existing projects or create a new project.
                 </Header>
                 <Card.Group itemsPerRow={4}>
-                    <Card color='red'>
+                    <Card color='red' onClick={this.addNewProject}>
                         <Card.Content textAlign="center">
                             <Icon name="plus circle" size="huge" style={{margin: '1em 0em'}}/>
                             <Card.Header>Add a project</Card.Header>
