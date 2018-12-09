@@ -7,8 +7,9 @@ class Dashboard extends Component {
         super(props);
 
         this.state = {
-            users: [],
+            projects: [],
             modalOpen: false,
+            projectName: '',
         }
     }
 
@@ -17,16 +18,16 @@ class Dashboard extends Component {
 
     componentDidMount() {
         this.props.firebase.store
-            .collection("users").onSnapshot(snapshot => {
+            .collection("projects").onSnapshot(snapshot => {
 
-                var users = [];
+                var projs = [];
                 snapshot.forEach(function(doc) {
-                    var user = {id: doc.id, data: doc.data()};
-                    users.push(user);
+                    var project = {id: doc.id, data: doc.data()};
+                    projs.push(project);
                 });
 
                 this.setState({
-                    users: users,
+                    projects: projs,
                 });
             });
     }
@@ -41,9 +42,10 @@ class Dashboard extends Component {
     }
 
     addNewProject = (event) => {
-        this.setState({
-            modalOpen: true,
-        });
+        this.setState(
+            {modalOpen: true},
+            () => this.ref.focus()
+        );
     }
 
     handleClose = () => {
@@ -52,33 +54,64 @@ class Dashboard extends Component {
         });
     }
 
+    handleProjectNameChange = (event) => {
+        this.setState({ [event.target.name]: event.target.value });
+    }
+
+    handleCreateProjectClick = (event) => {
+        const name = this.state.projectName;
+        const user = this.props.firebase.auth().currentUser
+
+        this.props.firebase.store
+            .collection("projects")
+            .add({
+                name: name
+            });
+
+        this.setState({
+            modalOpen: false,
+        });
+    }
+
+    handleRef = component => (this.ref = component);
+
     render() {
-        const users = this.state.users;
+        const projects = this.state.projects;
+
+        const modalDisabled = this.state.projectName === '';
 
         return (
             <Container style={{marginTop: '7em'}}>
                 <Header as="h1" inverted>
                     Welcome to Shwackle
                 </Header>
-                <Header as="h3" inverted>
+                <Header as="h3" inverted >
                     Manage existing projects or create a new project.
                 </Header>
-                <Card.Group itemsPerRow={4}>
+                <Card.Group itemsPerRow={4} className='project-cards' stackable>
                     <Card color='red' onClick={this.addNewProject}>
                         <Card.Content textAlign="center">
-                            <Icon name="plus circle" size="huge" style={{margin: '1em 0em'}}/>
+                            <Icon name="plus circle" size="huge" style={{margin: '0.6em 0em'}}/>
                             <Card.Header>Add a project</Card.Header>
-                            <Card.Description>Click here to ad a new SCRUM project.</Card.Description>
+                            <Card.Description>Click here to add a new SCRUM project.</Card.Description>
                         </Card.Content>
                     </Card>
+                    {projects.map(project => (
+                        <Card color='red' key={project.id}>
+                            <Card.Content textAlign="center">
+                                <Card.Header>{project.data.name}</Card.Header>
+                                <Card.Description></Card.Description>
+                            </Card.Content>
+                        </Card>
+                    ))}
                 </Card.Group>
                 <Modal open={this.state.modalOpen} size='small' onClose={this.handleClose}>
                     <Modal.Header>Add a new project</Modal.Header>
                     <Modal.Content>
-                        <Input placeholder="Project Name" fluid />
+                        <Input placeholder="Project Name" fluid onChange={this.handleProjectNameChange} name='projectName' ref={this.handleRef} />
                     </Modal.Content>
                     <Modal.Actions>
-                        <Button color='green'>
+                        <Button color='green' onClick={this.handleCreateProjectClick} disabled={modalDisabled}>
                             <Icon name='checkmark' /> Create
                         </Button>
                     </Modal.Actions>

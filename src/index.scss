@@ -14,6 +14,16 @@ body > div > div > div.login-form {
     background-color: $OrangeSoda !important;
 }
 
+.project-cards > .card {
+    height: 250px;
+}
+
+@media only screen and (max-width: 767px)
+{
+    .ui.stackable.cards>.card {
+        height: 200px !important;
+    }
+}
 
 // h1,
 // h2,
