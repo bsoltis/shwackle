@@ -4,9 +4,9 @@ $SpanishCrimson: #e01a4f;
 $Saffron: #F9C22E;
 $MaximumBlue: #53B3CB;
 
-body > div,
-body > div > div:not(.modal),
-body > div > div > div.login-form {
+body > div:first-of-type,
+body > div:first-of-type > div:first-of-type,
+body > div:first-of-type > div:first-of-type > div.login-form {
     height: 100%;
 }
 
@@ -14,15 +14,15 @@ body > div > div > div.login-form {
     background-color: $OrangeSoda !important;
 }
 
-.project-cards > .card {
-    height: 250px;
+.ui.icon.message .icon:not(.close) + .content {
+    padding-right: 1em;
 }
 
-@media only screen and (max-width: 767px)
+@media (min-width: 768px) and (max-width: 992px)
 {
-    .ui.stackable.cards>.card {
-        height: 200px !important;
-    }
+    .ui.four.cards > .card {
+        width: calc(33.33333% - 1.5em) !important;
+    } 
 }
 
 // h1,
