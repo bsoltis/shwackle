@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { withFirebase } from './Firebase';
 import { AuthUserContext } from './Session';
 import { withAuthentication } from './Session';
-import { Card, Icon, Container, Header, Modal, Input, Button } from 'semantic-ui-react';
+import DeleteProjectModal from './deleteproject';
+import { Card, Icon, Container, Header, Modal, Input, Button, Dropdown } from 'semantic-ui-react';
 
 class Dashboard extends Component {
     render() {
@@ -22,7 +23,8 @@ class DashboardBase extends Component {
 
         this.state = {
             projects: [],
-            modalOpen: false,
+            addProjectModalOpen: false,
+            deleteProjectModalOpen: false,
             projectName: '',
         }
     }
@@ -48,14 +50,14 @@ class DashboardBase extends Component {
 
     addNewProject = (event) => {
         this.setState(
-            {modalOpen: true},
+            {addProjectModalOpen: true},
             () => this.ref.focus()
         );
     }
 
-    handleClose = () => {
+    handleAddProjectModalClose = () => {
         this.setState({
-            modalOpen: false,
+            addProjectModalOpen: false,
         });
     }
 
@@ -75,11 +77,17 @@ class DashboardBase extends Component {
             });
 
         this.setState({
-            modalOpen: false,
+            addProjectModalOpen: false,
         });
     }
 
     handleRef = component => (this.ref = component);
+
+    handleDeleteProjectModalOpen = () => {
+        this.setState({
+            deleteProjectModalOpen: true,
+        });
+    }
 
     render() {
         const projects = this.state.projects;
@@ -91,7 +99,7 @@ class DashboardBase extends Component {
                     <Header as="h1" inverted>
                         Welcome to Shwackle
                     </Header>
-                    <Header as="h3" inverted >
+                    <Header as="h3" inverted>
                         Manage existing projects or create a new project.
                     </Header>
                     <Card.Group itemsPerRow={4} className='project-cards' stackable>
@@ -108,10 +116,18 @@ class DashboardBase extends Component {
                                     <Card.Header>{project.data.name}</Card.Header>
                                     <Card.Description></Card.Description>
                                 </Card.Content>
+                                <Card.Content extra>
+                                    <Dropdown text='Options' style={{float: 'right'}}>
+                                        <Dropdown.Menu>
+                                            <Dropdown.Item icon='tag' text='Rename' />
+                                            <Dropdown.Item icon='trash' text='Delete' onClick={this.handleDeleteProjectModalOpen} />
+                                        </Dropdown.Menu>
+                                    </Dropdown>
+                                </Card.Content>
                             </Card>
                         ))}
                     </Card.Group>
-                    <Modal open={this.state.modalOpen} size='small' onClose={this.handleClose}>
+                    <Modal open={this.state.addProjectModalOpen} size='small' onClose={this.handleAddProjectModalClose}>
                         <Modal.Header>Add a new project</Modal.Header>
                         <Modal.Content>
                             <Input placeholder="Project Name" fluid onChange={this.handleProjectNameChange} name='projectName' ref={this.handleRef} />
@@ -122,6 +138,7 @@ class DashboardBase extends Component {
                             </Button>
                         </Modal.Actions>
                     </Modal>
+                    <DeleteProjectModal modalOpen={this.state.deleteProjectModalOpen} />
                 </Container>
 
         );
