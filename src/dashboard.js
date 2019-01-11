@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { AuthUserContext } from './Session';
 import { withAuthentication } from './Session';
 import DeleteProjectModal from './deleteproject';
+import ManageUsersModal from './manageusers';
 import { Card, Icon, Container, Header, Modal, Grid, Button, Form, Popup } from 'semantic-ui-react';
+import { SemanticToastContainer } from 'react-semantic-toasts';
 
 class Dashboard extends Component {
     render() {
@@ -24,8 +26,9 @@ class DashboardBase extends Component {
             projects: [],
             addProjectModalOpen: false,
             deleteProjectModalOpen: false,
+            manageUsersModalOpen: false,
             projectName: '',
-            deleteProjectId: null,
+            currentProjectId: null,
         }
     }
 
@@ -83,13 +86,26 @@ class DashboardBase extends Component {
     handleDeleteProjectModalOpen = (id) => {
         this.setState({
             deleteProjectModalOpen: true,
-            deleteProjectId: id,
+            currentProjectId: id,
+        });
+    }
+
+    handleManageUsersModalOpen = (id) => {
+        this.setState({
+            manageUsersModalOpen: true,
+            currentProjectId: id,
         });
     }
 
     handleDeleteProjectModalClose = () => {
         this.setState({
             deleteProjectModalOpen: false,
+        });
+    }
+
+    handleManageUsersModalClose = () => {
+        this.setState({
+            manageUsersModalOpen: false,
         });
     }
 
@@ -133,7 +149,14 @@ class DashboardBase extends Component {
                                             <Popup trigger={<Button color='red' icon='pie graph' basic fluid size='massive'/>} content='Analytics' />
                                         </Grid.Column>
                                         <Grid.Column>
-                                            <Popup trigger={<Button color='yellow' icon='users' basic fluid size='massive'/>} content='Manage Users' />
+                                            <Popup trigger={<Button 
+                                                color='yellow' 
+                                                icon='users' 
+                                                basic
+                                                onClick={() => this.handleManageUsersModalOpen(project.id)} 
+                                                fluid
+                                                size='massive'/>
+                                            } content='Manage Team' />
                                         </Grid.Column>
                                     </Grid.Row>
                                 </Grid>
@@ -159,7 +182,9 @@ class DashboardBase extends Component {
                         </Button>
                     </Modal.Actions>
                 </Modal>
-                <DeleteProjectModal modalOpen={this.state.deleteProjectModalOpen} projectId={this.state.deleteProjectId} onClose={this.handleDeleteProjectModalClose} />
+                <DeleteProjectModal modalOpen={this.state.deleteProjectModalOpen} projectId={this.state.currentProjectId} onClose={this.handleDeleteProjectModalClose} />
+                <ManageUsersModal authUser={this.props.authUser} modalOpen={this.state.manageUsersModalOpen} projectId={this.state.currentProjectId} onClose={this.handleManageUsersModalClose} />
+                <SemanticToastContainer position='bottom-right' />
             </Container>
         );
     }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withFirebase } from './Firebase';
 import { Modal, Button, Icon, Form } from 'semantic-ui-react';
-import { SemanticToastContainer, toast } from 'react-semantic-toasts';
+import { toast } from 'react-semantic-toasts';
 
 class DeleteProjectModal extends Component {
     constructor(props) {
@@ -70,7 +70,6 @@ class DeleteProjectModal extends Component {
                         </Button>
                     </Modal.Actions>
                 </Modal>
-                <SemanticToastContainer position='bottom-right' />
             </div>
         );
     }

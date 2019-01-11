@@ -29,7 +29,7 @@ const HomepageHeading = ({ mobile }) => (
     
     <Header
       as='h2'
-      content='A fast, customizable, real-time SCRUM tool.'
+      content='A fast, customizable, real-time Scrum tool.'
       inverted
       style={{
         fontSize: mobile ? '1.5em' : '1.7em',
